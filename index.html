@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>تحميل تطبيق رحاب القرآن</title>
+<meta name="theme-color" content="#0e5c2e">
+<meta name="description" content="حمّل تطبيق رحاب القرآن لإدارة حلقات التحفيظ ومتابعة الأبناء">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+:root{--g:#0e5c2e;--g2:#2e9a52;--gold:#C5A954;--bg:#E2EFE5;--card:#fff;--ink:#16261c;--mut:#5b6b60}
+@media (prefers-color-scheme:dark){:root{--bg:#101815;--card:#18251D;--ink:#eef4ef;--mut:#9fb3a5}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:16px;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,system-ui,sans-serif}
+.card{width:100%;max-width:420px;background:var(--card);border-radius:24px;padding:28px 22px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.12)}
+.logo{width:96px;height:96px;border-radius:24px;margin:0 auto 12px;display:block}
+h1{margin:0 0 4px;font-size:24px;color:var(--g)}
+@media (prefers-color-scheme:dark){h1{color:var(--gold)}}
+.sub{margin:0 0 20px;color:var(--mut);font-size:14px}
+.ring{position:relative;width:132px;height:132px;margin:8px auto 14px}
+.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9}
+.ring .bg{stroke:rgba(46,154,82,.18)}
+.ring .fg{stroke:var(--g2);stroke-linecap:round;stroke-dasharray:339.3;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:40px;color:var(--g)}
+@media (prefers-color-scheme:dark){.ring b{color:var(--gold)}}
+.msg{margin:0 0 16px;font-size:15px;line-height:1.7}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font:700 16px inherit;font-family:inherit;cursor:pointer;text-decoration:none;margin-top:10px}
+.pri{background:var(--g);color:#fff}
+.sec{background:transparent;color:var(--g);border:1.5px solid var(--g2)}
+@media (prefers-color-scheme:dark){.sec{color:var(--gold);border-color:var(--gold)}}
+.steps{text-align:right;margin:0 0 6px;padding:0 20px 0 0;line-height:2;font-size:15px}
+.note{margin-top:16px;font-size:12px;color:var(--mut);line-height:1.8}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main class="card">
+  <img class="logo" src="icons/icon-192.png" alt="شعار رحاب القرآن">
+  <h1>رحاب القرآن</h1>
+  <p class="sub">لإدارة حلقات التحفيظ ومتابعتها</p>
+
+  <!-- أندرويد -->
+  <section id="android" hidden>
+    <div class="ring">
+      <svg width="132" height="132" viewBox="0 0 132 132"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" id="fg" cx="66" cy="66" r="54"/></svg>
+      <b id="num">10</b>
+    </div>
+    <p class="msg" id="amsg">سيبدأ تنزيل التطبيق تلقائياً بعد <span id="sec">10</span> ثوانٍ…</p>
+    <a class="btn pri" id="dl" href="downloads/rihab-alquran.apk" download>⬇ حمّل الآن</a>
+    <button class="btn sec" id="cancel" type="button">إلغاء التنزيل التلقائي</button>
+    <p class="note">بعد انتهاء التنزيل افتح الملف واضغط «تثبيت». إن ظهر تنبيه فاسمح بالتثبيت من هذا المتصفح (إعدادات ← السماح بالتثبيت من هذا المصدر).</p>
+  </section>
+
+  <!-- آيفون -->
+  <section id="ios" hidden>
+    <p class="msg">لتثبيت التطبيق على الآيفون:</p>
+    <ol class="steps">
+      <li>افتح هذه الصفحة في متصفح <b>Safari</b></li>
+      <li>اضغط زر المشاركة <b>⬆︎</b></li>
+      <li>اختر <b>«إضافة إلى الشاشة الرئيسية»</b></li>
+      <li>اضغط <b>«إضافة»</b></li>
+    </ol>
+    <a class="btn pri" href="app/">فتح التطبيق الآن</a>
+  </section>
+
+  <!-- حاسوب -->
+  <section id="desktop" hidden>
+    <p class="msg">افتح هذا الرابط من جوالك لتنزيل التطبيق، أو استخدم نسخة الويب مباشرة.</p>
+    <a class="btn pri" href="app/">فتح التطبيق</a>
+  </section>
+
+  <a class="btn sec" id="web" href="app/" hidden>أو استخدم نسخة الويب</a>
+</main>
+
+<script>
+(function(){
+  var APK = 'downloads/rihab-alquran.apk';   // ← مسار ملف الـAPK
+  var SECONDS = 10;
+  var ua = navigator.userAgent || '';
+  var isAndroid = /Android/i.test(ua);
+  var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var $ = function(id){ return document.getElementById(id); };
+
+  if(!isAndroid){ $(isIOS ? 'ios' : 'desktop').hidden = false; return; }
+  $('android').hidden = false; $('web').hidden = false;
+
+  var left = SECONDS, timer = null, circ = 339.3;
+  function startDownload(){
+    var a = document.createElement('a'); a.href = APK; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+    $('amsg').textContent = 'بدأ التنزيل… إن لم يبدأ فاضغط «حمّل الآن».';
+  }
+  function tick(){
+    left--; $('num').textContent = left; $('sec').textContent = left;
+    $('fg').style.strokeDashoffset = circ * (1 - left / SECONDS);
+    if(left <= 0){ clearInterval(timer); $('num').textContent = '✓'; startDownload(); }
+  }
+  $('cancel').onclick = function(){ clearInterval(timer); $('amsg').textContent = 'تم إيقاف التنزيل التلقائي.'; $('cancel').hidden = true; };
+  $('dl').onclick = function(){ clearInterval(timer); };
+
+  // إن لم يكن ملف APK مرفوعاً بعد: نحوّل المستخدم لنسخة الويب (PWA) بدل خطأ 404
+  fetch(APK, { method: 'HEAD' }).then(function(r){
+    if(!r.ok) throw 0;
+    timer = setInterval(tick, 1000);
+  }).catch(function(){
+    $('amsg').textContent = 'ملف التطبيق غير متاح الآن، سيتم فتح نسخة الويب (يمكن تثبيتها من قائمة المتصفح ← «تثبيت التطبيق»).';
+    $('dl').hidden = true; $('cancel').hidden = true;
+    setTimeout(function(){ location.href = 'app/'; }, 4000);
+  });
+})();
+</script>
+</body>
+</html>
